@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Box Grid</title>
+  <style>
+    /* @font-face {
+      font-family: "Astero";
+      src: url("Astero.otf") format("truetype");
+    } */
+
+    @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+    body {
+      background-color: rgb(70, 70, 70);
+      margin: 0;
+      height: 100vh;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, 50px);
+      grid-template-rows: repeat(auto-fill, 50px);
+      position: relative;
+      /* so absolute children work */
+    }
+
+    .box {
+      /* border: 1px solid #333; */
+      border-radius: 10px;
+      transition: background-color 0.5s ease-in-out;
+
+    }
+
+    .text {
+      position: absolute;
+      /* overlay on top of boxes */
+      /* top: 50%;
+      left: 50%; */
+      transform: translate(-50%, -177%);
+      font-family: "Bebas Neue", sans-serif;
+      font-weight: 400;
+      font-style: normal;
+      font-size: 12rem;
+      color: rgb(0, 0, 0);
+      text-shadow: 2px 2px 5px black;
+      /* makes it readable */
+      pointer-events: none;
+      /* so clicks go through to boxes if needed */
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <script>
+    const cols = Math.ceil(window.innerWidth / 50);
+    const rows = Math.ceil(window.innerHeight / 50);
+    const total = cols * rows;
+
+    for (let i = 0; i < total; i++) {
+      let div = document.createElement("div");
+      div.className = "box";
+      document.body.appendChild(div);
+    }
+
+    function randomColor() {
+      return `rgb(${Math.floor(Math.random() * 256) + 50}, 
+                  ${Math.floor(Math.random() * 256) + 50}, 
+                  ${Math.floor(Math.random() * 256) + 50})`;
+    }
+
+    const boxes = document.querySelectorAll(".box");
+    boxes.forEach(box => {
+      box.style.backgroundColor = randomColor();
+    });
+
+    setInterval(() => {
+      boxes.forEach(box => {
+        box.style.backgroundColor = randomColor();
+      });
+    }, 500);
+
+
+  </script>
+
+  <!-- Put text LAST but it's absolutely positioned so it stays centered -->
+  <div class="container">
+    <div class="text">Ali Ahmad</div>
+  </div>
+</body>
+
+</html>
